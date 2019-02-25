@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class MyLvAdapter extends BaseAdapter implements SectionIndexer {
 
     private Context context;
-    private ArrayList<String> lists = new ArrayList<>();
+    private ArrayList<TempData> lists=new ArrayList<>();
 
-    public MyLvAdapter(Context context, ArrayList<String> lists) {
+    public MyLvAdapter(Context context,  ArrayList<TempData> lists) {
         this.context = context;
         this.lists = lists;
     }
@@ -48,7 +48,7 @@ public class MyLvAdapter extends BaseAdapter implements SectionIndexer {
             myHolder = (MyHolder) convertView.getTag();
         }
 
-        myHolder.mTv.setText(lists.get(position));
+        myHolder.mTv.setText(lists.get(position).getName());
 
         //根据position获取分类的首字母的Char ascii值
         int section = getSectionForPosition(position);
@@ -56,7 +56,7 @@ public class MyLvAdapter extends BaseAdapter implements SectionIndexer {
         //如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
         if(position == getPositionForSection(section)){
             myHolder.tvLetter.setVisibility(View.VISIBLE);
-            myHolder.tvLetter.setText(""+lists.get(position).charAt(0));
+            myHolder.tvLetter.setText(""+lists.get(position).getIndex().charAt(0));
         }else{
             myHolder.tvLetter.setVisibility(View.GONE);
         }
@@ -73,7 +73,7 @@ public class MyLvAdapter extends BaseAdapter implements SectionIndexer {
     @Override
     public int getPositionForSection(int sectionIndex) {
         for (int i = 0; i < lists.size(); i++) {
-            char c = lists.get(i).substring(0,1).charAt(0);
+            char c = lists.get(i).getIndex().substring(0,1).charAt(0);
             System.out.println("getPositionForSection c=======" + c);
             if (c == sectionIndex) {
                 System.out.println("getPositionForSection i=======" + i);
@@ -86,7 +86,7 @@ public class MyLvAdapter extends BaseAdapter implements SectionIndexer {
 
     @Override
     public int getSectionForPosition(int position) {
-        String str = lists.get(position).substring(0,1);
+        String str = lists.get(position).getIndex().substring(0,1);
         System.out.println("getSectionForPosition str=======" + str);
         char c = str.charAt(0);
         System.out.println("getSectionForPosition c=======" + c);

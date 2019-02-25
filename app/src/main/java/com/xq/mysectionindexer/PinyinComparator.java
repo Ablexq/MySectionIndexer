@@ -2,17 +2,17 @@ package com.xq.mysectionindexer;
 
 import java.util.Comparator;
 
-public class PinyinComparator implements Comparator<String> {
+public class PinyinComparator implements Comparator<TempData> {
 
-    public int compare(String o1, String o2) {
-        if (o1.toLowerCase().equals("@")
-                || o2.toLowerCase().equals("#")) {
+    public int compare(TempData o1, TempData o2) {
+        if (o1.getIndex().equals("@")
+                || o2.getIndex().equals("#")) {
             return -1;
-        } else if (o1.toLowerCase().equals("#")
-                || o2.toLowerCase().equals("@")) {
+        } else if (o1.getIndex().equals("#")
+                || o2.getIndex().equals("@")) {
             return 1;
         } else {
-            return o1.toLowerCase().compareTo(o2.toLowerCase());//首字母的比较
+            return o1.getIndex().compareTo(o2.getIndex());
         }
     }
 
